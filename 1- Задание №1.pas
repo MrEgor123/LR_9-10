@@ -1,4 +1,4 @@
-﻿program z_1_1;
+program z_1_1;
 
 const
   N = 5;
@@ -10,14 +10,16 @@ var
   a: IntArray;
   i, k, m: Integer;
 
+function prod(var a: IntArray; var m, k: integer): integer;
+var
+  i: Integer;
 begin
-
   for i := 1 to N do // Ввод элементов массива
   begin
     Write('Введите элемент ', i, ': ');
     ReadLn(a[i]);
   end;
-  
+
   k := 1;
   for i := 1 to N do // Вычисление произведения всех элементов
     k := k * a[i];
@@ -28,4 +30,10 @@ begin
     if a[i] mod 2 = 0 then
       m := m * a[i];
   WriteLn('Произведение четных элементов: ', m);
+
+  prod := k + m; 
+end;
+
+begin
+  prod(a, m, k);
 end.
