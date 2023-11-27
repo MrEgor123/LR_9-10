@@ -47,6 +47,4 @@ begin
   writeln('Одномерный массив:');
   for i := 1 to m do
     write(b[i]:4);
-
-  readln;
 end.
