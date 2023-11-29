@@ -1,81 +1,72 @@
-﻿program z_1_5;
+const n = 5;
+type arn = array[1..n] of integer;
 
-const
-  Sz = 10; 
-
-var
-  a: array[1..Sz] of Integer; 
-  b: array[1..Sz] of Integer;
-  i, minIndex, maxIndex: Integer;
-  c: Boolean;
-
+procedure max(var ar: arn);
+var maxi, k: integer;
 begin
-  for i := 1 to Sz do
+  maxi:=1;
+  for k:=2 to n do //индекс макс элемента
   begin
-    a[i] := Random(51); // заполняем случайными числами
-    b[i] := Random(51);
-  end;
-
-  writeln('Массив 1:');
-  for i := 1 to Sz do
-    write(a[i]:4);
-  writeln;
-
-  writeln('Массив 2:');
-  for i := 1 to Sz do
-    write(b[i]:4);
-  writeln;
-
-  c := False;
-  for i := 1 to Sz do // Поиск кратного пяти элемента в массиве 1
-  begin
-    if (a[i] mod 5 = 0) then
+    if ar[k]>ar[maxi] then
     begin
-      c := True;
-      break;
+      maxi:=k;
     end;
   end;
+  ar[maxi]:=0; //замена на ноль
+end;
 
-  minIndex := 1;
-  maxIndex := 1;
-
-  for i := 2 to Sz do
+procedure min(var ar: arn);
+var mini,k: integer;
+begin
+  mini:=1;
+  for k:=2 to n do //индекс мин элемента
   begin
-    if a[i] < a[minIndex] then
-      minIndex := i;
+    if ar[k]<ar[mini] then
+    begin
+      mini:=k;
+    end;
+  end;
+  for k:=mini+1 to n do //умн на 2 после мин
+  begin
+    ar[k]:=ar[k]*2;
+  end;
+end;
 
-    if a[i] > a[maxIndex] then
-      maxIndex := i;
+
+var a,b: arn; i: integer;
+begin
+  writeln('Введите массив 1:');
+  for i := 1 to n do read(a[i]);
+  writeln('Введите массив 2:');
+  for i := 1 to n do read(b[i]);
+  
+  i := 1;
+  while (i<=n) do //проверка на первый элемент, кратный пяти
+  begin
+    if (a[i] mod 5 = 0) or (b[i] mod 5 = 0) then
+    begin
+      if (a[i] mod 5 = 0) and (b[i] mod 5 <> 0) then
+      begin
+        max(a); min(b);
+      end
+      else if (a[i] mod 5 <> 0) and (b[i] mod 5 = 0) then
+      begin
+        max(b); min(a);
+      end;
+      break;
+    end;
+    i:=i+1;
   end;
 
-  // изменение массива 1 в соответствии с условиями
-  if c then
-    a[maxIndex] := 0;
-
-  // Вывод измененнго массива 1
-  writeln('Измененный массив 1:');
-  for i := 1 to Sz do
-    write(a[i]:4);
-  writeln;
-
-  // Поиск минимального элемента в массиве 2
-  minIndex := 1;
-
-  for i := 2 to Sz do
+  writeln('Массив 1 после изменений:');
+  for i:=1 to n do
   begin
-    if b[i] < b[minIndex] then
-      minIndex := i;
+    write(a[i], ' ');
   end;
-
-  // Умножение на 2 всех элементов массива 2, расположенных после минимального
-  for i := minIndex + 1 to Sz do
-    b[i] := b[i] * 2;
-
-  // Вывод измененного массива 2
-  writeln('Измененный массив 2:');
-  for i := 1 to Sz do
-    write(b[i]:4);
   writeln;
-
-  readln;
+  writeln('Массив 2 после изменений:');
+  for i:=1 to n do
+  begin
+    write(b[i], ' ');
+  end;
 end.
