@@ -1,67 +1,36 @@
-﻿program z_1_4;
-
-const
-  Sz = 5; 
-
+const n=10;
 var
-  a: array[1..Sz] of Integer;
-  b: array[1..Sz] of Integer;
-  sum1, sum2: Integer;
-  i: Integer;
+  a, b: array of integer;
+  i, sum1, sum2: integer;  
+procedure pro10(i, sum1, sum2: integer; var a, b: array of integer);
+const n=10;
+var aa, bb: array [1..n] of integer;
+begin
+  writeln('Изначальные массивы:');
+  for i:=1 to n do
+  begin
+    aa[i]:=random(-20, 20);
+    bb[i]:=random(-20, 20);
+  end;
+  writeln(aa);
+  writeln(bb);
+  writeln;
+  for i:=1 to n do
+  begin
+    if aa[i]>0 then sum1:=sum1+aa[i];
+    if bb[i]>0 then sum2:=sum2+bb[i];
+  end;
+  if sum1<sum2 then
+    for i:=1 to n do
+      aa[i]:=aa[i]*10
+  else
+    for i:=1 to n do
+      bb[i]:=bb[i]*10;
+  writeln('Изменённые массивы:');
+  writeln(aa);
+  writeln(bb);
+end;
 
 begin
-  for i := 1 to Sz do
-  begin
-    a[i] := Random(21) - 10; // заполнение случайными числами
-    b[i] := Random(21) - 10;
-  end;
-
-  writeln('Массив 1:');
-  for i := 1 to Sz do
-    write(a[i]:4);
-  writeln;
-
-  writeln('Массив 2:');
-  for i := 1 to Sz do
-    write(a[i]:4);
-  writeln;
-
-  sum1 := 0;
-  sum2 := 0;
-
-  for i := 1 to Sz do
-  begin
-    if a[i] > 0 then
-      sum1 := sum1 + a[i];
-
-    if b[i] > 0 then
-      sum2 := sum2 + b[i];
-  end;
-
-  // Умножение на 10 элементов массива с меньшей суммой положительных элементов
-  if sum1 < sum2 then
-  begin
-    writeln('Сумма положительных элементов в массиве 1 меньше.');
-    for i := 1 to Sz do
-      a[i] := a[i] * 10;
-  end
-  else
-  begin
-    writeln('Сумма положительных элементов в массиве 2 меньше.');
-    for i := 1 to Sz do
-      b[i] := b[i] * 10;
-  end;
-
-  // Вывод обновленных массивов
-  writeln('Обновленный массив 1:');
-  for i := 1 to Sz do
-    write(a[i]:4);
-  writeln;
-
-  writeln('Обновленный массив 2:');
-  for i := 1 to Sz do
-    write(b[i]:4);
-  writeln;
-
-  readln;
+  pro10(i, sum1, sum2, a, b);
 end.
