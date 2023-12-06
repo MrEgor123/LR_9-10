@@ -29,7 +29,7 @@ begin
 
     for j := 2 to n do // поиск максимума
     begin
-      if a[i, j] < max then
+      if a[i, j] > max then
       begin
         max := a[i, j];
         countMax := 1;
