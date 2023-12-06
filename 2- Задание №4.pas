@@ -1,55 +1,38 @@
-﻿Program z_2_4;
-
-const
-  m = 8;
-  n = 8;
-
-var
-  a: array[1..m, 1..n] of Integer;
-  b: array[1..m] of Integer;
-  i, j: Integer;
-  avg: Integer;
+Program z_2_4;
+const m = 8; n = 8;
+var a: array[1..m, 1..n] of integer;
+    b: array[1..m] of integer;
+    i,z,s,avg:integer;
 
 begin
-  for i := 1 to m do
-    for j := 1 to n do
-      a[i, j] := Random(50) + 1; // заполнение случайными элементами
+  for i:=1 to m do
+  for z:=1 to n do a[i,z] := random(1,10);
 
-  writeln('Исходный массив:');
-  for i := 1 to m do
+  writeln('двумерный массив:');
+  for i:=1 to m do
   begin
-    for j := 1 to n do
-      write(a[i, j]:4);
+    for z:=1 to n do
+      write(a[i,z]:4);
     writeln;
   end;
-
-  for i := 1 to m do
+  writeln('одномерный массив:');
+  for i:=1 to m do
   begin
-    b[i] := a[i, 1]; // минимальное значение 
-
-    for j := 2 to n do // поиск минимального значения
+    b[i]:=a[i,1]; //первый как минимальный
+    for z:=2 to n do
     begin
-      if a[i, j] < b[i] then
-        b[i] := a[i, j];
+      if a[i,z]<b[i] then
+        b[i]:=a[i,z]; //>? - присваиваем
     end;
-  end;
-
-  writeln('Одномерный массив:');
-  for i := 1 to m do
     write(b[i]:4);
-
-  avg := 0;
-  for i := 1 to m do // вычисление avg
-    avg := avg + b[i];
-
-  avg := avg div m;
+  end;
+  s:=0;
+  for i:=1 to m do
+    s:=s+b[i];
+  avg:=s div m; //ср арифм
   writeln;
-  writeln('Среднее арифметическое: ', avg);
-
   if avg in b then
-    writeln('Одномерный массив содержит свое среднее арифметическое.')
+    writeln('Одномерный массив содержит своё среднее арифметическое: ',avg)
   else
-    writeln('Одномерный массив НЕ содержит свое среднее арифметическое.');
-
-  readln;
+    writeln('Одномерный массив НЕ содержит своё среднее арифметическое: ',avg);
 end.
